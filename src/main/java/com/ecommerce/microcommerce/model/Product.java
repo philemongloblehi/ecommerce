@@ -1,10 +1,26 @@
 package com.ecommerce.microcommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+
+/**
+ * @author Philémon Globléhi <philemon.globlehi@gmail.com>
+ */
+@Entity
+@Table(name = "product")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(unique = true)
+    @Length(min = 3, max = 20, message = "The length of the name must be between 3 and 20 characters")
     private String name;
+
+    @Min(value = 1, message = "The price must be greater than or equal to 1")
     private int price;
 
     @JsonIgnore
